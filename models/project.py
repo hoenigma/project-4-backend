@@ -1,5 +1,5 @@
 from app import db
-from models.user import UserModel
+
 from models.region import RegionModel
 from models.base import BaseModel
 

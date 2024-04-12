@@ -21,4 +21,4 @@ class RegionModel(db.Model, BaseModel):
     threats = db.relationship("ThreatModel", back_populates="regions")
     wildlife = db.relationship("WildlifeModel", back_populates="regions")
     projects = db.relationship("ProjectModel", back_populates="regions")
-    users = db.relationship("UserModel", back_populates="regions")
+    # users = db.relationship("UserModel", back_populates="regions")

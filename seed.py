@@ -28,7 +28,7 @@ with app.app_context():
             name="Matt",
             roles=2,
             password="Password123!",
-            favourite_region=None,
+            # favourite_region=None,
         )
         user1.save()
 

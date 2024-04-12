@@ -3,6 +3,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from app import db, bcrypt
 
 from models.base import BaseModel
+from models.project import ProjectModel
 
 
 class UserModel(db.Model, BaseModel):
@@ -10,7 +11,7 @@ class UserModel(db.Model, BaseModel):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    favourite_region = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=True)
+    # favourite_region = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=True)
 
     username = db.Column(db.Text, nullable=False, unique=True)
     email = db.Column(db.Text, nullable=False, unique=True)
@@ -23,7 +24,7 @@ class UserModel(db.Model, BaseModel):
 
     # Opposite relationship
     projects = db.relationship("ProjectModel", back_populates="users")
-    regions = db.relationship("RegionModel", back_populates="users")
+    # regions = db.relationship("RegionModel", back_populates="users")
 
     @hybrid_property
     def password(self):

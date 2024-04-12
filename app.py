@@ -34,6 +34,6 @@ marsh = Marshmallow(app)
 bcrypt = Bcrypt(app)
 
 # Routes for the controllers
-# from controllers import users
+from controllers import users
 
-# app.register_blueprint(users.router, url_prefix="/api")
+app.register_blueprint(users.router, url_prefix="/api")
