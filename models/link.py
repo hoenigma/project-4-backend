@@ -1,13 +1,15 @@
 from app import db
+from sqlalchemy import String
 from models.base import BaseModel
 
 
-class LinksModel(db.model, BaseModel):
+class LinksModel(db.Model, BaseModel):
 
     __tablename__ = "links"
 
-    region_id = db.column(db.Integer, db.ForeignKey("regions.id"))
-    links = db.Column(db.Text, nullable=False)
+    region_id = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    links = db.Column(db.ARRAY(String), nullable=False)
 
     # Relatiosnhip
-    region = db.realtionship("RegionModel", back_populates="links")
+    regions = db.relationship("RegionModel", back_populates="links")

@@ -4,11 +4,11 @@ from models.region import RegionModel
 from models.base import BaseModel
 
 
-class ProjectModel(db.model, BaseModel):
+class ProjectModel(db.Model, BaseModel):
 
     __tablename__ = "projects"
 
-    id = db.Column(db.integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     region_id = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=False)
 
@@ -23,5 +23,5 @@ class ProjectModel(db.model, BaseModel):
     links = db.Column(db.Text, nullable=True)
 
     # Adding other modles to projects
-    user = db.relationship("UserModel", back_populates="project")
-    region = db.relationship("RegionModel", back_populates="project")
+    users = db.relationship("UserModel", back_populates="projects")
+    regions = db.relationship("RegionModel", back_populates="projects")

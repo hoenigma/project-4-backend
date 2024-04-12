@@ -1,13 +1,17 @@
 from app import db
+from sqlalchemy import String
 from models.base import BaseModel
 
 
-class WildlifeModel(db.model, BaseModel):
+class WildlifeModel(db.Model, BaseModel):
 
     __tablename__ = "wildlife"
 
-    region_id = db.column(db.Integer, db.ForeignKey("regions.id"))
-    wildlife = db.Column(db.Text, nullable=False)
+    region_id = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=False)
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    wildlife = db.Column(db.ARRAY(String), nullable=False)
 
     # Relationship
-    region = db.realtionship("RegionModel", back_populates="wildlife")
+    regions = db.relationship("RegionModel", back_populates="wildlife")
