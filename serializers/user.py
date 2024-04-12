@@ -21,7 +21,7 @@ class UserSerializer(marsh.SQLAlchemyAutoSchema):
 
     # ! Adding a pw field
     #  Add custom validation to password (validate=)
-    # password = fields.String(required=True, validate=validate_password)
+    password = fields.String(required=True, validate=validate_password)
     project_id = fields.Nested("ProjectSchema", many=True)
 
     class Meta:

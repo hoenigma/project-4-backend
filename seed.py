@@ -27,7 +27,7 @@ with app.app_context():
             email="matt@matt.com",
             name="Matt",
             roles=2,
-            password_hash="Password123!",
+            password="Password123!",
             favourite_region=None,
         )
         user1.save()

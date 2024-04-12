@@ -32,3 +32,8 @@ marsh = Marshmallow(app)
 
 # ! Create bcrypt plugin, tell it about flask
 bcrypt = Bcrypt(app)
+
+# Routes for the controllers
+# from controllers import users
+
+# app.register_blueprint(users.router, url_prefix="/api")

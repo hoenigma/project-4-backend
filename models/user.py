@@ -25,17 +25,17 @@ class UserModel(db.Model, BaseModel):
     projects = db.relationship("ProjectModel", back_populates="users")
     regions = db.relationship("RegionModel", back_populates="users")
 
-    # @hybrid_property
-    # def password(self):
-    #     pass
+    @hybrid_property
+    def password(self):
+        pass
 
-    # @password.setter
-    # def password(self, password_plaintext):
-    #     print("hashing password", self)
-    #     # Hash password from signup
-    #     encoded_hashed_pw = bcrypt.generate_password_hash(password_plaintext)
-    #     self.password_hash = encoded_hashed_pw.decode("utf-8")
+    @password.setter
+    def password(self, password_plaintext):
+        print("hashing password", self)
+        # Hash password from signup
+        encoded_hashed_pw = bcrypt.generate_password_hash(password_plaintext)
+        self.password_hash = encoded_hashed_pw.decode("utf-8")
 
-    # def validate_password(self, login_password):
-    #     # compare the hash password with the login password
-    #     return bcrypt.check_password_hash(self.password_hash, login_password)
+    def validate_password(self, login_password):
+        # compare the hash password with the login password
+        return bcrypt.check_password_hash(self.password_hash, login_password)
