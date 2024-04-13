@@ -133,4 +133,4 @@ def delete_region(region_id):
     except Exception as e:
         # If an error occurs, rollback the session and return an error response
         db.session.rollback()
-        return jsonify({"message": "Failed to delete game", "error": str(e)}), 500
+        return jsonify({"message": "Failed to delete region", "error": str(e)}), 500

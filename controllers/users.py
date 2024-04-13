@@ -17,11 +17,13 @@ user_serializer = UserSerializer()
 router = Blueprint("users", __name__)
 
 
+# sign up user
 @router.route("/signup", methods=["POST"])
 def signup():
 
     try:
         user_dictionary = request.json
+        # have to give them role of 1 (user)
         user_dictionary["roles"] = 1
         # user_dictionary["favourite_region"] = None
 
@@ -29,8 +31,9 @@ def signup():
 
         user_model = user_serializer.load(user_dictionary)
 
-        db.session.add(user_model)
-        db.session.commit()
+        # db.session.add(user_model)
+        # db.session.commit()
+        user_model.save()
 
         print("user model", user_model.password)
 
@@ -123,7 +126,7 @@ def update_user():
             partial=True,
         )
 
-        # save region
+        # save user
         user.save()
         return user_serializer.jsonify(user)
 
@@ -139,10 +142,10 @@ def update_user():
         return jsonify({"message": "something went wrong"}), 500
 
 
-# delete region
+# delete user
 @router.route("/user", methods=["DELETE"])
 @secure_route
-def delete_region():
+def delete_user():
     try:
         # get the id from the user
         current_userId = g.current_user.id

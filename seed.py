@@ -21,6 +21,11 @@ with app.app_context():
         )
         region1.save()
 
+        region2 = RegionModel(
+            country="England", region_name="South East", info="some info"
+        )
+        region2.save()
+
         # seed user
         user1 = UserModel(
             username="Matt123",
@@ -44,6 +49,19 @@ with app.app_context():
             links="a long url",
         )
         project1.save()
+
+        project2 = ProjectModel(
+            user_id=user1.id,
+            region_id=region2.id,
+            # date="date",
+            # time="time",
+            name=user1.name,
+            area_of_project="devon",
+            description="ooohhh ocean",
+            links="a long url",
+        )
+
+        project2.save()
 
         # seed Area
         area1 = AreaModel(
