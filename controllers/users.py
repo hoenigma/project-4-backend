@@ -102,3 +102,60 @@ def get_single_user():
         return jsonify({"message": "something went wrong", "error": e.messages}), 422
     except Exception as e:
         return jsonify({"message": "Failed to fetch the user", "error": str(e)}), 500
+
+
+# update user
+@router.route("/user", methods=["PUT"])
+@secure_route
+def update_user():
+    try:
+        # get the id from the user
+        current_userId = g.current_user.id
+        print("The current userID is ", current_userId)
+
+        existing_user = db.session.query(UserModel).get(current_userId)
+        print(existing_user)
+
+        data = request.json
+        user = user_serializer.load(
+            data,
+            instance=existing_user,
+            partial=True,
+        )
+
+        # save region
+        user.save()
+        return user_serializer.jsonify(user)
+
+    except ValidationError as e:
+        return (
+            jsonify(
+                {"message": "something went wrong in validation", "error": e.messages}
+            ),
+            422,
+        )
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "something went wrong"}), 500
+
+
+# delete region
+@router.route("/user", methods=["DELETE"])
+@secure_route
+def delete_region():
+    try:
+        # get the id from the user
+        current_userId = g.current_user.id
+        print("The current userID is ", current_userId)
+
+        user = db.session.query(UserModel).get(current_userId)
+        print(user)
+
+        db.session.delete(user)
+        db.session.commit()
+        return user_serializer.jsonify(user)
+
+    except Exception as e:
+        # If an error occurs, rollback the session and return an error response
+        db.session.rollback()
+        return jsonify({"message": "Failed to delete user", "error": str(e)}), 500
