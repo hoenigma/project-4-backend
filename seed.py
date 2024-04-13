@@ -36,8 +36,8 @@ with app.app_context():
         project1 = ProjectModel(
             user_id=user1.id,
             region_id=region1.id,
-            date="date",
-            time="time",
+            # date="date",
+            # time="time",
             name=user1.name,
             area_of_project="cornwall",
             description="ooohhh ocean",

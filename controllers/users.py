@@ -2,11 +2,12 @@ from http import HTTPStatus
 from datetime import datetime, timedelta, timezone
 import pytz
 import jwt
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
 from marshmallow.exceptions import ValidationError
 from config.environment import SECRET
 from app import db
 from models.user import UserModel
+from middleware.secure_route import secure_route
 
 # from models.user import UserModel
 from serializers.user import UserSerializer
@@ -83,3 +84,21 @@ def login():
 
     # Return success message along with JWT token
     return {"message": "Login successful.", "token": token}
+
+
+# get a user
+@router.route("/user", methods=["GET"])
+@secure_route
+def get_single_user():
+    try:
+        # get the id from the user
+        current_userId = g.current_user.id
+        print("The current userID is ", current_userId)
+
+        user = db.session.query(UserModel).get(current_userId)
+        return user_serializer.jsonify(user)
+
+    except ValidationError as e:
+        return jsonify({"message": "something went wrong", "error": e.messages}), 422
+    except Exception as e:
+        return jsonify({"message": "Failed to fetch the user", "error": str(e)}), 500
