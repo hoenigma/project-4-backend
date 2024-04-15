@@ -22,7 +22,7 @@ def get_projects_by_region(region_id):
         return jsonify({"message": "Failed to fetch projects", "error": str(e)}), 500
 
 
-# Get all projects for one USER
+# Get all projects for one USER (show in user page)
 @router.route("/user/projects", methods=["GET"])
 @secure_route
 def get_projects_by_user():
