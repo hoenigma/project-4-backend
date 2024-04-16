@@ -31,10 +31,10 @@ def get_regions():
 
 
 # get a region
-@router.route("/regions/<int:region_id>", methods=["GET"])
-def get_single_region(region_id):
+@router.route("/region/<int:regionid>", methods=["GET"])
+def get_single_region(regionid):
     try:
-        region = db.session.query(RegionModel).get(region_id)
+        region = db.session.query(RegionModel).get(regionid)
         return region_serializer.jsonify(region)
 
     except Exception as e:

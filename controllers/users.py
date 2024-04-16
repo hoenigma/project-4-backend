@@ -50,43 +50,49 @@ def signup():
 
 @router.route("/login", methods=["POST"])
 def login():
-    # If user is who they say they are, send back JWT
+    try:
+        # If user is who they say they are, send back JWT
 
-    # Get the info
-    credentials_dictionary = request.json
+        # Get the info
+        credentials_dictionary = request.json
 
-    # print("This is ", credentials_dictionary)
+        # print("This is ", credentials_dictionary)
 
-    # Get user from database
-    user = (
-        db.session.query(UserModel)
-        .filter_by(email=credentials_dictionary["email"])
-        .first()
-    )
+        # Get user from database
+        user = (
+            db.session.query(UserModel)
+            .filter_by(email=credentials_dictionary["email"])
+            .first()
+        )
 
-    print("user...", user)
-    # No user
-    if not user:
-        return {"message": "Login failed. Try again."}
-    # Comapre the two hashed password together
-    if not user.validate_password(credentials_dictionary["password"]):
-        return {"message": "Login failed. Try again."}
+        print("user...", user)
+        # No user
+        if not user:
+            return {"message": "Login failed. Try again."}, 401
+        # Comapre the two hashed password together
+        if not user.validate_password(credentials_dictionary["password"]):
+            return {"message": "Login failed PASSWORD. Try again."}, 401
 
-    # print("otherwise success!!")
-    # return {"message": "yaaaayyyy"}
-    # generate JWT Token
-    payload = {
-        "exp": datetime.now(timezone.utc) + (timedelta(days=1)),  # Expiry date
-        "iat": datetime.now(pytz.UTC),
-        "sub": user.id,  # User.id as sub
-    }
-    print(payload["exp"])
-    print(payload["iat"])
+        # print("otherwise success!!")
+        # return {"message": "yaaaayyyy"}
+        # generate JWT Token
+        payload = {
+            "exp": datetime.now(timezone.utc) + (timedelta(days=1)),  # Expiry date
+            "iat": datetime.now(pytz.UTC),
+            "sub": user.id,  # User.id as sub
+        }
+        print(payload["exp"])
+        print(payload["iat"])
 
-    token = jwt.encode(payload, SECRET, algorithm="HS256")
+        token = jwt.encode(payload, SECRET, algorithm="HS256")
 
-    # Return success message along with JWT token
-    return {"message": "Login successful.", "token": token}
+        # Return success message along with JWT token
+        return {"message": "Login successful.", "token": token}
+    except Exception as e:
+        return {
+            "message": "An error occurred while processing your request.",
+            "error": str(e),
+        }, 500
 
 
 # get a user

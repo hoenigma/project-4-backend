@@ -1,6 +1,6 @@
+from marshmallow import fields
 from app import marsh
 from models.region import RegionModel
-from marshmallow import fields
 
 
 class RegionSchema(marsh.SQLAlchemyAutoSchema):
