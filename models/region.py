@@ -14,6 +14,7 @@ class RegionModel(db.Model, BaseModel):
     country = db.Column(db.Text, nullable=False)
     region_name = db.Column(db.Text, nullable=False)
     info = db.Column(db.Text, nullable=False)
+    image = db.Column(db.Text, nullable=False)
 
     # Relationships
     areas = db.relationship("AreaModel", back_populates="regions")
