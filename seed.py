@@ -65,8 +65,9 @@ with app.app_context():
             region_id=SW_england_region.id,
             # date="date",
             # time="time",
-            name=user1.name,
+            name_of_project="Beach Clean up at Porthcurno",
             area_of_project="cornwall",
+            date_time="Saturday 27th April, 2pm",
             description="ooohhh ocean",
             links="a long url",
         )
@@ -77,9 +78,10 @@ with app.app_context():
             region_id=SE_england_region.id,
             # date="date",
             # time="time",
-            name=user1.name,
+            name_of_project="Sand dunes talk at Studland",
             area_of_project="dorset",
-            description="ooohhh ocean",
+            date_time="Thursday 9th May, 11am",
+            description="ooohhh sand",
             links="a long url",
         )
 

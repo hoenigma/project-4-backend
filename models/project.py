@@ -13,13 +13,12 @@ class ProjectModel(db.Model, BaseModel):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     region_id = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=False)
 
-    # Date and time will be automatic
-    date_time = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     # time = db.Column(db.Text, nullable=False)
 
     # They will type this in
-    name = db.Column(db.Text, nullable=False)
+    name_of_project = db.Column(db.Text, nullable=False)
     area_of_project = db.Column(db.Text, nullable=False)
+    date_time = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
     links = db.Column(db.Text, nullable=True)
 

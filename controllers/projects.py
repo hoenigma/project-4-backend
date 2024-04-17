@@ -22,6 +22,17 @@ def get_projects_by_region(region_id):
         return jsonify({"message": "Failed to fetch projects", "error": str(e)}), 500
 
 
+# Get one project
+@router.route("/project/<int:project_id>", methods=["GET"])
+def get_one_project(project_id):
+    try:
+        project = db.session.query(ProjectModel).get(project_id)
+        return project_serializer.jsonify(project)
+
+    except Exception as e:
+        return jsonify({"message": "Failed to fetch the region", "error": str(e)}), 500
+
+
 # Get all projects for one USER (show in user page)
 @router.route("/user/projects", methods=["GET"])
 @secure_route
@@ -39,7 +50,7 @@ def get_projects_by_user():
 
 
 # update a project
-@router.route("/projects/<int:project_id>", methods=["PUT"])
+@router.route("/updateprojects/<int:project_id>", methods=["PUT"])
 @secure_route
 def update_project(project_id):
     try:
@@ -48,7 +59,7 @@ def update_project(project_id):
         print("The current userID is ", current_userId)
 
         existing_project = db.session.query(ProjectModel).get(project_id)
-        print(existing_project)
+        print("The existing project", existing_project)
 
         userId_from_project = existing_project.user_id
         print("The project userID is ", userId_from_project)
