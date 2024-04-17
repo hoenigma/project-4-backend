@@ -5,6 +5,10 @@ from app import db
 
 # import info for the region and the secure route
 from models.region import RegionModel
+from models.area import AreaModel
+from models.link import LinksModel
+from models.threat import ThreatModel
+from models.wildlife import WildlifeModel
 from middleware.secure_route import secure_route
 from serializers.region import RegionSchema
 
@@ -114,6 +118,42 @@ def create_region():
 @secure_route
 def delete_region(region_id):
     try:
+        # Check if there are any areas associated with the region
+        areas = AreaModel.query.filter_by(region_id=region_id).all()
+
+        if areas:
+            # If there are associated areas, delete them first
+            for area in areas:
+                db.session.delete(area)
+                db.session.commit()
+
+        # Check if there are any links associated with the region
+        links = LinksModel.query.filter_by(region_id=region_id).all()
+
+        if links:
+            # If there are associated links, delete them first
+            for link in links:
+                db.session.delete(link)
+                db.session.commit()
+
+        # Check if there are any threats associated with the region
+        threats = ThreatModel.query.filter_by(region_id=region_id).all()
+
+        if threats:
+            # If there are associated threats, delete them first
+            for threat in threats:
+                db.session.delete(threat)
+                db.session.commit()
+
+        # Check if there are any wildlife associated with the region
+        wildlives = WildlifeModel.query.filter_by(region_id=region_id).all()
+
+        if wildlives:
+            # If there are associated wildlives, delete them first
+            for wildlife in wildlives:
+                db.session.delete(wildlife)
+                db.session.commit()
+
         region = db.session.query(RegionModel).get(region_id)
         if not region:
             return jsonify({"message": "Region not found"}), 404
