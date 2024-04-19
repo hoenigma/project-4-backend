@@ -36,4 +36,4 @@ class UserSerializer(marsh.SQLAlchemyAutoSchema):
         load_instance = True
         exclude = ("password_hash",)
         # Fields only allowed when loading
-        load_only = ("password_hash", "email", "password", "password_confirm")
+        load_only = ("password_hash", "password", "password_confirm")
