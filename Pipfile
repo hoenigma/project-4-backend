@@ -16,6 +16,8 @@ pytest = "*"
 psycopg2-binary = "*"
 sqlalchemy = "*"
 marshmallow = "*"
+flask-cors = "*"
+gunicorn = "*"
 
 [dev-packages]
 

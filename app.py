@@ -10,8 +10,12 @@ from flask_marshmallow import Marshmallow
 # import bcrypt
 from flask_bcrypt import Bcrypt
 
+# import CORS (for deployment)
+from flask_cors import CORS
+
 # import the uri
 from config.environment import db_URI
+
 
 app = Flask(__name__)
 
@@ -23,6 +27,9 @@ def hello():
 
 # Added this configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = db_URI
+
+# Add CORS
+CORS(app)
 
 #  Instatiate the SQLAlchemy class
 db = SQLAlchemy(app)
