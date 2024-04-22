@@ -71,7 +71,7 @@ def login():
             return {"message": "Login failed. Try again."}, 401
         # Comapre the two hashed password together
         if not user.validate_password(credentials_dictionary["password"]):
-            return {"message": "Login failed PASSWORD. Try again."}, 401
+            return {"message": "Login failed. Try again."}, 401
 
         # print("otherwise success!!")
         # return {"message": "yaaaayyyy"}
